@@ -8,32 +8,32 @@
     <link rel="stylesheet" href="style/index.css">
 </head>
 <body>
-    <div id="high-score-link">
-        <a href="">View Highscores</a>
-    </div>
+    <!-- home div shows upon opening the application -->
     <div id="home" class="content">
         <h1>Fishing Game</h1>
         <p id="description">This is a game of luck that allows you to simulate the life of a fisherman in a limited capacity</p>
         <button type="button" id="start" class="btn pbtn">Start</button>
     </div>
+    <!-- game div shows when start button is clicked -->
     <div id="game" class="content">
         <h1 id="round-no">Round <span></span></h1>
         <div id="results">
-            <div id="roll">Roll result: <span></span></div>
+            <div id="fish">You caught <span></span>!</div>
+            <div id="keep">Would you like to keep it?</div>
+            <div><button type="button" id="yes" class="btn pbtn left-button">Yes</button><button type="button" id="no" class="btn pbtn">No</button></div>
+        </div>
+        <div id="decision">
+            <div id="kept">Great catch!</div>
+            <div id="nokept">You sent it back!</div>
+            <div id="continue">Would you like to continue?</div>
+            <div><button type="button" id="roll-again" class="btn pbtn left-button">Cast your line again</button><button type="button" id="end" class="btn pbtn">End Game</button></div>
         </div>
     </div>
+    <!-- endgame div shows when end game button is click -->
     <div id="endgame" class="content">
         <h1>Finished!</h1>
         <p>Your final score is <span id="score"></span></p>
-        <label for="initials">Enter your initials: </label>
-        <input type="text" id="initials" name="initials">
-        <button id="submit" class="btn pbtn">Submit</button>
-    </div>
-    <div id="high-scores" class="content">
-        <h1>High Scores</h1>
-        <ol id="score-list"></ol>
-        <button id="go-back" class="btn pbtn">Go Back</button>
-        <button id="clear" class="btn pbtn">Clear High Scores</button>
+        <button type="button" id="go-home" class="btn pbtn">Go Home</button>
     </div>
     <script type="text/javascript" src="script/index.js"></script>
 </body>

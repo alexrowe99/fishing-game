@@ -6,18 +6,24 @@ var endDiv = document.getElementById("endgame");
 var hsDiv = document.getElementById("high-scores");
 var startButton = document.getElementById("start");
 var roundH1 = document.getElementById("round-no");
-var rollResult = document.getElementById("roll");
+var results = document.getElementById("results");
+var caught = document.getElementById("fish");
+var yesButton = document.getElementById("yes");
+var noButton = document.getElementById("no");
+var kept = document.getElementById("kept");
+var nokept = document.getElementById("nokept");
+var decision = document.getElementById("decision");
+var rollAgainButton = document.getElementById("roll-again");
+var endGameButton = document.getElementById("end");
 var scoreSpan = document.getElementById("score");
-var initialsInput = document.getElementById("initials");
-var submitButton = document.getElementById("submit");
-var scoreList = document.getElementById("score-list");
-var goBackButton = document.getElementById("go-back");
-var clearButton = document.getElementById("clear");
+var endgame = document.getElementById("endgame");
+var goHomeButton = document.getElementById("go-home");
 
+// data structure to store details about fish
 var catchable = [
 	{
 		num: 1,
-		fish: "King George Whiting",
+		fish: "a King George Whiting",
 		keptPoints: 50,
 		releasePoints: 70
 	},
@@ -29,39 +35,80 @@ var catchable = [
 	},
 	{
 		num: 3,
-		fish: "Small Mulloway",
+		fish: "a Small Mulloway",
 		keptPoints: -10,
 		releasePoints: 10
 	},
 	{
 		num: 4,
-		fish: "Snapper",
+		fish: "a Snapper",
 		keptPoints: 30,
 		releasePoints: 40
 	},
 	{
 		num: 5,
-		fish: "Large Mullet",
+		fish: "a Large Mullet",
 		keptPoints: 20,
 		releasePoints: 20
 	},
 	{
 		num: 6,
-		fish: "Seaweed Monster",
+		fish: "a Seaweed Monster",
 		keptPoints: 5,
 		releasePoints: -5
 	}
 ]
 
-var roll = Math.floor(Math.random()*6) + 1;
-console.log(roll);
-roundCount = 1;
+var score = 0;
+var roundCount = 1;
+var newCatch;
 
-function startGame() {
-	homeDiv.style.display = "none";
-	gameDiv.style.display = "block";
+// function to simulate the roll and show the result
+function playGame() {
+	var roll = Math.floor(Math.random()*6) + 1;
 	roundH1.children[0].innerText = roundCount;
-	rollResult.children[0].innerText = roll;
+	newCatch = catchable.find(x => x.num === roll);
+	caught.children[0].innerText = newCatch.fish;
+	roundCount++;
 }
 
-startButton.addEventListener("click", startGame);
+// click event listeners for all buttons determine what is showing on the page
+startButton.addEventListener("click", () => {
+	homeDiv.style.display = "none";
+	gameDiv.style.display = "block";
+	playGame();
+});
+yesButton.addEventListener("click", () => {
+	results.style.display = "none";
+	nokept.style.display = "none";
+	kept.style.display = "block";
+	decision.style.display = "block";
+	score += newCatch.keptPoints;
+	if (score < 0) score = 0;
+});
+noButton.addEventListener("click", () => {
+	results.style.display = "none";
+	kept.style.display = "none";
+	nokept.style.display = "block";
+	decision.style.display = "block";
+	score += newCatch.releasePoints;
+	if (score < 0) score = 0;
+});
+rollAgainButton.addEventListener("click", () => {
+	playGame();
+	results.style.display = "block";
+	decision.style.display = "none";
+});
+endGameButton.addEventListener("click", () => {
+	gameDiv.style.display = "none";
+	endgame.style.display = "block";
+	scoreSpan.innerText = score;
+});
+goHomeButton.addEventListener("click", () => {
+	homeDiv.style.display = "block";
+	endgame.style.display = "none";
+	results.style.display = "block";
+	decision.style.display = "none";
+	score = 0;
+	roundCount = 1;
+})
